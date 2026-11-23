@@ -4,12 +4,16 @@ module.exports = ({ config }) => {
   return {
     ...base.expo,
     ...config,
+    experiments: {
+      ...(base.expo.experiments || {}),
+      ...(config.experiments || {}),
+      baseUrl: repoBase
+    },
     web: {
       ...(base.expo.web || {}),
       ...(config.web || {}),
       bundler: 'metro',
-      output: 'single',
-      baseUrl: repoBase
+      output: 'single'
     }
   };
 };
