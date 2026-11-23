@@ -1,8 +1,4 @@
-*.iml
-.gradle/
-local.properties
-.idea/
-build/
-captures/
+node_modules/
+dist/
 .DS_Store
-*.apk
+*.log
