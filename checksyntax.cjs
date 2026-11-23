@@ -1,5 +1,5 @@
 const ts=require('typescript'),fs=require('fs');let failed=false;
-const files=['App.js','src/components/ThreeDLab.js','src/components/AlgorithmLab.js','src/components/LogicLab.js','src/data/courses.js'];
+const files=['App.js','src/components/ThreeDLab.native.js','src/components/ThreeDLab.web.js','src/components/AlgorithmLab.js','src/components/LogicLab.js','src/data/courses.js'];
 for (const f of files) {
  const kind=(f==='App.js'||f.includes('components'))?ts.ScriptKind.JSX:ts.ScriptKind.JS;
  const sf=ts.createSourceFile(f,fs.readFileSync(f,'utf8'),ts.ScriptTarget.Latest,true,kind);

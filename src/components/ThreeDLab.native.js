@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {View,Text,StyleSheet,TouchableOpacity} from 'react-native';
 import {GLView} from 'expo-gl';
 import {Renderer} from 'expo-three';
@@ -8,6 +8,10 @@ const cyan = 0x35bfff;
 export default function ThreeDLab({courseId='internet',accent='#56C8FF'}) {
  const [explode,setExplode]=useState(false);
  const [rotate,setRotate]=useState(true);
+ const explodeRef=useRef(explode);
+ const rotateRef=useRef(rotate);
+ useEffect(()=>{explodeRef.current=explode;},[explode]);
+ useEffect(()=>{rotateRef.current=rotate;},[rotate]);
  const onContextCreate=async(gl)=>{
    const scene=new THREE.Scene(); scene.background=new THREE.Color('#080D15');
    const camera=new THREE.PerspectiveCamera(42,gl.drawingBufferWidth/gl.drawingBufferHeight,0.1,100);
@@ -34,8 +38,8 @@ export default function ThreeDLab({courseId='internet',accent='#56C8FF'}) {
    let frame;
    const animate=()=>{
      frame=requestAnimationFrame(animate);
-     group.rotation.y+=rotate?.008:0; group.rotation.x=.18;
-     const spread=explode?1.6:0;
+     group.rotation.y+=rotateRef.current?.008:0; group.rotation.x=.18;
+     const spread=explodeRef.current?1.6:0;
      top.position.y=.98+spread;
      inner.position.z=.32+spread;
      side1.position.x=-.98-spread;
