@@ -63,4 +63,4 @@ Two workflows are included:
 ### Enable Pages once
 In the GitHub repository, open **Settings → Pages → Build and deployment → Source**, select **GitHub Actions**, and save. Push to `main` or manually run **Deploy CSVERSE to GitHub Pages** from Actions.
 
-Expo web export is written to `dist/`. The build workflow artifact can be downloaded from the workflow run. The deploy workflow publishes it to Pages.
+Expo web export uses single-page output (no Expo Router static-rendering dependency) and is written to `dist/`. The build workflow artifact can be downloaded from the workflow run. The deploy workflow publishes it to Pages.

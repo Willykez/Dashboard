@@ -8,7 +8,7 @@ module.exports = ({ config }) => {
       ...(base.expo.web || {}),
       ...(config.web || {}),
       bundler: 'metro',
-      output: 'static',
+      output: 'single',
       baseUrl: repoBase
     }
   };
