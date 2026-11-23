@@ -1,69 +1,66 @@
-# Profile Dashboard (React)
+# CSVERSE Explorer v2
 
-A rich, animated, multi-screen personal dashboard built with React — five
-screens, a hash router, light/dark theming, scroll reveals, count-up stats,
-animated skill bars, a project modal, and a layout that adapts between a
-desktop sidebar and a mobile bottom nav.
+React Native / Expo mobile learning explorer for five Computer Science courses:
+- Internet Programming
+- Algorithms Design & Analysis
+- Database Systems
+- Network Design & Architecture
+- Digital Logics
 
-## Screens
+## Implemented
+- Home dashboard with course cards and progress overview
+- Course directory with searchable courses and topic tags
+- Course detail pages with lessons and bookmark/completion controls
+- Interactive concept lab with expandable 2D layers
+- Three.js 3D chip assembly in Expo GL, rotate toggle and explode/collapse layers
+- Bubble-sort comparison visualizer
+- Logic gate playground with AND, OR, XOR and live output
+- Course quizzes, feedback, and score saving
+- Bookmarks, visited courses, completion tracking persisted on device using AsyncStorage
+- Mobile navigation bar
 
-- **Dashboard** — hero profile card, animated stats, featured projects, recent activity
-- **Projects** — filterable project grid with a detail modal
-- **Activity** — full timeline of updates
-- **About** — bio + animated skill bars grouped by category
-- **Contact** — message form (static demo) + social links
+## Requirements
+Node.js LTS, npm, Android device/emulator, or Expo Go compatible with the SDK.
 
-## Stack
-
-Plain React (JSX) bundled with [esbuild](https://esbuild.github.io/) — no
-heavy framework or CLI needed. Animations and theming are done with CSS
-(keyframes, transitions, `IntersectionObserver`-triggered reveals) rather
-than an extra animation library, so the dependency list stays small:
-`react`, `react-dom`, `react-icons`, and `esbuild` as the only dev dependency.
-
-Routing is a ~15-line hash router (`#/projects`, `#/about`, …), which means
-the built site works on any static host with zero server configuration —
-including GitHub Pages.
-
-## Structure
-
-```
-src/
-  main.jsx            Entry point
-  App.jsx              Layout + router wiring
-  hooks/                useHashRoute, useTheme, useReveal, useCountUp
-  components/           Sidebar, BottomNav, TopBar, ProjectCard, Modal, ...
-  screens/              Dashboard, Projects, Activity, About, Contact
-  data/profile.js       All content — edit this to make it yours
-  styles/index.css      Design tokens (light + dark), layout, animations
-public/index.html        HTML shell
-scripts/build.mjs        esbuild build script
-```
-
-## Edit your info
-
-Everything shown on the site comes from `src/data/profile.js` — name,
-bio, stats, skills, projects, activity feed, and social links. No
-component code needs to change to update the content.
-
-## Run locally
-
-```
+## Setup
+```bash
 npm install
-npm run build     # -> dist/
-npm run serve     # serve dist/ locally
+npx expo install expo-gl expo-status-bar
+npx expo start
+```
+Use Expo Go to scan the QR code or run `npx expo start --android`.
+
+## 3D scene note
+The Three.js scene uses an actual GL-rendered geometry assembly with separated layers, not a pre-rendered image. It currently represents a conceptual processor/chip assembly. Each course has a related concept pipeline in the 2D lab. The current 3D scene is a reusable generic assembly; course-specific meshes and richer drag controls are planned as a follow-on.
+
+## Data persistence
+Progress, bookmarks, quiz scores, and visited course IDs are stored locally on the device using AsyncStorage. This starter does not use a backend or sync progress between devices.
+
+## Project structure
+```
+CSVERSE_ReactNative/
+  App.js
+  app.json
+  package.json
+  babel.config.js
+  README.md
+  src/
+    components/
+      ThreeDLab.js
+      AlgorithmLab.js
+      LogicLab.js
+    data/
+      courses.js
 ```
 
-For live rebuilds while editing:
 
-```
-npm run watch
-```
+## GitHub Actions workflows
 
-## CI
+Two workflows are included:
+- `.github/workflows/build.yml` runs on pushes to `main`, pull requests targeting `main`, and manual dispatch. It installs dependencies, checks JavaScript syntax, exports Expo web, and uploads the `csverse-web-dist` artifact.
+- `.github/workflows/deploy-pages.yml` builds and deploys static web output to GitHub Pages on pushes to `main` or manual dispatch. It configures Expo's base URL as `/<repository-name>/` for project Pages.
 
-- `.github/workflows/build.yml` — installs deps and builds on every push/PR,
-  uploading `dist/` as a downloadable artifact.
-- `.github/workflows/deploy-pages.yml` — builds and publishes `dist/` to
-  GitHub Pages on pushes to `main` (enable Pages in repo Settings → Pages →
-  Source: GitHub Actions).
+### Enable Pages once
+In the GitHub repository, open **Settings → Pages → Build and deployment → Source**, select **GitHub Actions**, and save. Push to `main` or manually run **Deploy CSVERSE to GitHub Pages** from Actions.
+
+Expo web export is written to `dist/`. The build workflow artifact can be downloaded from the workflow run. The deploy workflow publishes it to Pages.

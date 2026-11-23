@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "CSVERSE",
+    "slug": "csverse-explorer",
+    "version": "2.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "splash": {
+      "backgroundColor": "#080D15"
+    },
+    "android": {
+      "package": "com.csverse.explorer",
+      "adaptiveIcon": {
+        "backgroundColor": "#080D15"
+      }
+    },
+    "ios": {
+      "bundleIdentifier": "com.csverse.explorer"
+    },
+    "plugins": [
+      "expo-gl"
+    ],
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./public/favicon.png"
+    }
+  }
+}

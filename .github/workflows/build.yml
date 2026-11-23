@@ -1,4 +1,4 @@
-name: Build
+name: CSVERSE Web Build
 
 on:
   push:
@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [main]
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   build:
@@ -22,11 +25,18 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build
+      - name: Check JavaScript syntax
+        run: npm run check
+
+      - name: Export Expo web build
         run: npm run build
+        env:
+          EXPO_PUBLIC_BASE_URL: /
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: dist
+          name: csverse-web-dist
           path: dist
+          if-no-files-found: error
+          retention-days: 14

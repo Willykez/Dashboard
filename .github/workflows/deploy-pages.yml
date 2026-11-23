@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy CSVERSE to GitHub Pages
 
 on:
   push:
@@ -11,7 +11,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: github-pages
   cancel-in-progress: true
 
 jobs:
@@ -29,8 +29,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Export Expo web build for repository Pages URL
         run: npm run build
+        env:
+          EXPO_PUBLIC_BASE_URL: /${{ github.event.repository.name }}/
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
@@ -44,6 +49,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Deploy
+      - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

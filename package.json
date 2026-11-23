@@ -1,21 +1,31 @@
 {
-  "name": "profile-dashboard-react",
-  "version": "1.0.0",
-  "description": "A rich, animated, multi-screen personal dashboard built with React.",
+  "name": "csverse-explorer",
+  "version": "2.0.0",
   "private": true,
-  "type": "module",
+  "main": "expo/AppEntry",
   "scripts": {
-    "build": "node scripts/build.mjs",
-    "watch": "node scripts/build.mjs --watch",
-    "serve": "npx --yes serve dist"
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "build": "expo export --platform web --output-dir dist",
+    "check": "node checksyntax.cjs"
   },
   "dependencies": {
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "react-icons": "^5.7.0"
+    "@react-native-async-storage/async-storage": "2.2.0",
+    "expo": "~54.0.0",
+    "expo-gl": "~16.0.0",
+    "expo-status-bar": "~3.0.0",
+    "expo-three": "^8.0.0",
+    "react": "19.1.0",
+    "react-native": "0.81.5",
+    "three": "^0.180.0",
+    "react-dom": "19.1.0",
+    "react-native-web": "^0.21.0",
+    "@expo/metro-runtime": "~6.1.0"
   },
   "devDependencies": {
-    "esbuild": "^0.28.2"
-  },
-  "license": "MIT"
+    "babel-preset-expo": "~54.0.0",
+    "typescript": "^5.9.3"
+  }
 }
